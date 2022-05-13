@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Contract;
+use App\Entity\Applicant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Contract>
+ * @extends ServiceEntityRepository<Applicant>
  *
- * @method Contract|null find($id, $lockMode = null, $lockVersion = null)
- * @method Contract|null findOneBy(array $criteria, array $orderBy = null)
- * @method Contract[]    findAll()
- * @method Contract[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Applicant|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Applicant|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Applicant[]    findAll()
+ * @method Applicant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ContractRepository extends ServiceEntityRepository
+class ApplicantRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Contract::class);
+        parent::__construct($registry, Applicant::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Contract $entity, bool $flush = true): void
+    public function add(Applicant $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class ContractRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Contract $entity, bool $flush = true): void
+    public function remove(Applicant $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,15 +48,15 @@ class ContractRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Contract[] Returns an array of Contract objects
+    //  * @return Applicant[] Returns an array of Applicant objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -65,10 +65,10 @@ class ContractRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Contract
+    public function findOneBySomeField($value): ?Applicant
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

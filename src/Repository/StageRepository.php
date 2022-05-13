@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Condidats;
+use App\Entity\Stage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Condidats>
+ * @extends ServiceEntityRepository<Stage>
  *
- * @method Condidats|null find($id, $lockMode = null, $lockVersion = null)
- * @method Condidats|null findOneBy(array $criteria, array $orderBy = null)
- * @method Condidats[]    findAll()
- * @method Condidats[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Stage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Stage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Stage[]    findAll()
+ * @method Stage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CondidatsRepository extends ServiceEntityRepository
+class StageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Condidats::class);
+        parent::__construct($registry, Stage::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Condidats $entity, bool $flush = true): void
+    public function add(Stage $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class CondidatsRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Condidats $entity, bool $flush = true): void
+    public function remove(Stage $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,15 +48,15 @@ class CondidatsRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Condidats[] Returns an array of Condidats objects
+    //  * @return Stage[] Returns an array of Stage objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('s.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -65,10 +65,10 @@ class CondidatsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Condidats
+    public function findOneBySomeField($value): ?Stage
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

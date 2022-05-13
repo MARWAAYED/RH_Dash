@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Leave;
+use App\Entity\Job;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Leave>
+ * @extends ServiceEntityRepository<Job>
  *
- * @method Leave|null find($id, $lockMode = null, $lockVersion = null)
- * @method Leave|null findOneBy(array $criteria, array $orderBy = null)
- * @method Leave[]    findAll()
- * @method Leave[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Job|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Job|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Job[]    findAll()
+ * @method Job[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LeaveRepository extends ServiceEntityRepository
+class JobRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Leave::class);
+        parent::__construct($registry, Job::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Leave $entity, bool $flush = true): void
+    public function add(Job $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class LeaveRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Leave $entity, bool $flush = true): void
+    public function remove(Job $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,15 +48,15 @@ class LeaveRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Leave[] Returns an array of Leave objects
+    //  * @return Job[] Returns an array of Job objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
+        return $this->createQueryBuilder('j')
+            ->andWhere('j.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
+            ->orderBy('j.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -65,10 +65,10 @@ class LeaveRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Leave
+    public function findOneBySomeField($value): ?Job
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
+        return $this->createQueryBuilder('j')
+            ->andWhere('j.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
