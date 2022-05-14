@@ -40,18 +40,13 @@ class Job
     private $no_of_hired_employee;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity=Applicant::class, mappedBy="job")
      */
-    private $requirements;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Applicant::class, mappedBy="job_id")
-     */
-    private $Applicant_job;
+    private $job;
 
     public function __construct()
     {
-        $this->Applicant_job = new ArrayCollection();
+        $this->job = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,42 +102,30 @@ class Job
         return $this;
     }
 
-    public function getRequirements(): ?string
-    {
-        return $this->requirements;
-    }
-
-    public function setRequirements(?string $requirements): self
-    {
-        $this->requirements = $requirements;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Applicant>
      */
-    public function getApplicantJob(): Collection
+    public function getJob(): Collection
     {
-        return $this->Applicant_job;
+        return $this->job;
     }
 
-    public function addApplicantJob(Applicant $applicantJob): self
+    public function addJob(Applicant $job): self
     {
-        if (!$this->Applicant_job->contains($applicantJob)) {
-            $this->Applicant_job[] = $applicantJob;
-            $applicantJob->setJobId($this);
+        if (!$this->job->contains($job)) {
+            $this->job[] = $job;
+            $job->setJob($this);
         }
 
         return $this;
     }
 
-    public function removeApplicantJob(Applicant $applicantJob): self
+    public function removeJob(Applicant $job): self
     {
-        if ($this->Applicant_job->removeElement($applicantJob)) {
+        if ($this->job->removeElement($job)) {
             // set the owning side to null (unless already changed)
-            if ($applicantJob->getJobId() === $this) {
-                $applicantJob->setJobId(null);
+            if ($job->getJob() === $this) {
+                $job->setJob(null);
             }
         }
 

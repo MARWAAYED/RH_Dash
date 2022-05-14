@@ -23,16 +23,6 @@ class Applicant
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $description;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $email_form;
-
-    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $create_date;
@@ -45,24 +35,19 @@ class Applicant
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $salary_proposed;
+    private $probability;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $salary_expected;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Stage::class, inversedBy="job_id")
+     * @ORM\ManyToOne(targetEntity=Stage::class, inversedBy="stage")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $stage_id;
+    private $stage;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="Applicant_job")
+     * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="job")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $job_id;
+    private $job;
 
     public function getId(): ?int
     {
@@ -77,30 +62,6 @@ class Applicant
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getEmailForm(): ?string
-    {
-        return $this->email_form;
-    }
-
-    public function setEmailForm(?string $email_form): self
-    {
-        $this->email_form = $email_form;
 
         return $this;
     }
@@ -129,50 +90,38 @@ class Applicant
         return $this;
     }
 
-    public function getSalaryProposed(): ?float
+    public function getProbability(): ?float
     {
-        return $this->salary_proposed;
+        return $this->probability;
     }
 
-    public function setSalaryProposed(?float $salary_proposed): self
+    public function setProbability(?float $probability): self
     {
-        $this->salary_proposed = $salary_proposed;
+        $this->probability = $probability;
 
         return $this;
     }
 
-    public function getSalaryExpected(): ?float
+    public function getStage(): ?Stage
     {
-        return $this->salary_expected;
+        return $this->stage;
     }
 
-    public function setSalaryExpected(?float $salary_expected): self
+    public function setStage(?Stage $stage): self
     {
-        $this->salary_expected = $salary_expected;
+        $this->stage = $stage;
 
         return $this;
     }
 
-    public function getStageId(): ?Stage
+    public function getJob(): ?Job
     {
-        return $this->stage_id;
+        return $this->job;
     }
 
-    public function setStageId(?Stage $stage_id): self
+    public function setJob(?Job $job): self
     {
-        $this->stage_id = $stage_id;
-
-        return $this;
-    }
-
-    public function getJobId(): ?Job
-    {
-        return $this->job_id;
-    }
-
-    public function setJobId(?Job $job_id): self
-    {
-        $this->job_id = $job_id;
+        $this->job = $job;
 
         return $this;
     }

@@ -25,18 +25,13 @@ class Stage
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity=Applicant::class, mappedBy="stage")
      */
-    private $requirements;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Applicant::class, mappedBy="stage_id")
-     */
-    private $job_id;
+    private $stage;
 
     public function __construct()
     {
-        $this->job_id = new ArrayCollection();
+        $this->stage = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,42 +51,30 @@ class Stage
         return $this;
     }
 
-    public function getRequirements(): ?string
-    {
-        return $this->requirements;
-    }
-
-    public function setRequirements(?string $requirements): self
-    {
-        $this->requirements = $requirements;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Applicant>
      */
-    public function getJobId(): Collection
+    public function getStage(): Collection
     {
-        return $this->job_id;
+        return $this->stage;
     }
 
-    public function addJobId(Applicant $jobId): self
+    public function addStage(Applicant $stage): self
     {
-        if (!$this->job_id->contains($jobId)) {
-            $this->job_id[] = $jobId;
-            $jobId->setStageId($this);
+        if (!$this->stage->contains($stage)) {
+            $this->stage[] = $stage;
+            $stage->setStage($this);
         }
 
         return $this;
     }
 
-    public function removeJobId(Applicant $jobId): self
+    public function removeStage(Applicant $stage): self
     {
-        if ($this->job_id->removeElement($jobId)) {
+        if ($this->stage->removeElement($stage)) {
             // set the owning side to null (unless already changed)
-            if ($jobId->getStageId() === $this) {
-                $jobId->setStageId(null);
+            if ($stage->getStage() === $this) {
+                $stage->setStage(null);
             }
         }
 
