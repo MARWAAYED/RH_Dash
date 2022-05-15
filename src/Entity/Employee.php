@@ -33,8 +33,7 @@ class Employee
     private $work_email;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="contract")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Contract::class, inversedBy="employees")
      */
     private $contract;
 

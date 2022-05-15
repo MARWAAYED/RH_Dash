@@ -44,9 +44,15 @@ class Job
      */
     private $job;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Applicant::class, mappedBy="job")
+     */
+    private $applicants;
+
     public function __construct()
     {
         $this->job = new ArrayCollection();
+        $this->applicants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +132,36 @@ class Job
             // set the owning side to null (unless already changed)
             if ($job->getJob() === $this) {
                 $job->setJob(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Applicant>
+     */
+    public function getApplicants(): Collection
+    {
+        return $this->applicants;
+    }
+
+    public function addApplicant(Applicant $applicant): self
+    {
+        if (!$this->applicants->contains($applicant)) {
+            $this->applicants[] = $applicant;
+            $applicant->setJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicant(Applicant $applicant): self
+    {
+        if ($this->applicants->removeElement($applicant)) {
+            // set the owning side to null (unless already changed)
+            if ($applicant->getJob() === $this) {
+                $applicant->setJob(null);
             }
         }
 

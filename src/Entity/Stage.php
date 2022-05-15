@@ -29,9 +29,15 @@ class Stage
      */
     private $stage;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Applicant::class, mappedBy="stage")
+     */
+    private $applicants;
+
     public function __construct()
     {
         $this->stage = new ArrayCollection();
+        $this->applicants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,36 @@ class Stage
             // set the owning side to null (unless already changed)
             if ($stage->getStage() === $this) {
                 $stage->setStage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Applicant>
+     */
+    public function getApplicants(): Collection
+    {
+        return $this->applicants;
+    }
+
+    public function addApplicant(Applicant $applicant): self
+    {
+        if (!$this->applicants->contains($applicant)) {
+            $this->applicants[] = $applicant;
+            $applicant->setStage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicant(Applicant $applicant): self
+    {
+        if ($this->applicants->removeElement($applicant)) {
+            // set the owning side to null (unless already changed)
+            if ($applicant->getStage() === $this) {
+                $applicant->setStage(null);
             }
         }
 

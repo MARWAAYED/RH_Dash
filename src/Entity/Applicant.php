@@ -38,14 +38,12 @@ class Applicant
     private $probability;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Stage::class, inversedBy="stage")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Stage::class, inversedBy="applicants")
      */
     private $stage;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="job")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="applicants")
      */
     private $job;
 

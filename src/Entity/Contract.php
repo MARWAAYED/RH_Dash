@@ -49,9 +49,15 @@ class Contract
      */
     private $contract;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Employee::class, mappedBy="contract")
+     */
+    private $employees;
+
     public function __construct()
     {
         $this->contract = new ArrayCollection();
+        $this->employees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,36 @@ class Contract
             // set the owning side to null (unless already changed)
             if ($contract->getContract() === $this) {
                 $contract->setContract(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Employee>
+     */
+    public function getEmployees(): Collection
+    {
+        return $this->employees;
+    }
+
+    public function addEmployee(Employee $employee): self
+    {
+        if (!$this->employees->contains($employee)) {
+            $this->employees[] = $employee;
+            $employee->setContract($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(Employee $employee): self
+    {
+        if ($this->employees->removeElement($employee)) {
+            // set the owning side to null (unless already changed)
+            if ($employee->getContract() === $this) {
+                $employee->setContract(null);
             }
         }
 
