@@ -36,10 +36,12 @@ class HomeController extends AbstractController
         
         $stage_id = $manager->createQuery('SELECT (a.stage) FROM App\Entity\Applicant a GROUP BY a.stage ')->getResult();
         $stage = $manager->createQuery('SELECT COUNT(a.stage) FROM App\Entity\Applicant a GROUP BY a.stage ')->getResult();
+        $stage_name = $manager->createQuery('SELECT s.name FROM App\Entity\Stage s GROUP BY s.name ORDER BY s.id ')->getResult();
         
         $stage_id1=array_map('current',$stage_id);
         $stage1=array_map('current',$stage);
-        dump($stage1);
+        $stage2=array_map('current',$stage_name); 
+        //dump($stage2);
         
    
         //contract
@@ -52,6 +54,29 @@ class HomeController extends AbstractController
         $tot_wage = $manager->createQuery('SELECT SUM(t.wage) FROM App\Entity\Contract t')->getSingleScalarResult();
         //total des salaires d'une annee
         $tot_wage_a = $manager->createQuery('SELECT (SUM(t.wage))*12 FROM App\Entity\Contract t')->getSingleScalarResult();
+        
+        //total des salaires par contract d'un mois
+        $wage_contract = $manager->createQuery('SELECT t.state, SUM(t.wage) as wg FROM App\Entity\Contract t GROUP BY t.state')->getResult();
+        //total des salaires par contract d'une année
+        $an_wage_contract = $manager->createQuery('SELECT t.state, SUM(t.wage)*12 as wga FROM App\Entity\Contract t GROUP BY t.state')->getResult();
+
+        //$wage_contract1=array_map('current',$wage_contract); 
+        //$an_wage_contract1=array_map('current',$an_wage_contract); 
+        dump($wage_contract);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //employee
         $jobt = $manager->createQuery('SELECT e.job_title  FROM App\Entity\Employee e GROUP BY e.job_title')->getResult();
@@ -75,7 +100,7 @@ class HomeController extends AbstractController
         
         $type_abs1=array_map('current',$type_abs);
         $tot_abs1=array_map('current',$tot_abs);
-        dump($type_abs1);
+        //dump($type_abs1);
         //dump($tot_abs);
         //autres
         //$stage = $manager->createQuery('SELECT s.name , ap.name FROM App\Entity\Stage s JOIN s.stage ap')->setMaxResults($applicant)->getResult();
@@ -114,6 +139,9 @@ class HomeController extends AbstractController
             'tot_abs' => json_encode($tot_abs1),
             'stage_id' => json_encode($stage_id1),
             'stage' => json_encode($stage1),
+            'stage_name' => json_encode($stage2),
+            'wage_contract' => $wage_contract,
+            'an_wage_contract' => $an_wage_contract,
         ]);
     }
 
