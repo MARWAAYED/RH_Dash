@@ -112,60 +112,71 @@
       </div>
       <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
               <h1 class="mb-1 text-center">
-                Listes des contrats 
+                Listes des condidats
               </h1>
       </div>
     </div>
 
 
-
-
+    
     <div class="container-fluid py-4">
 
-      <!-- Liste des contracts -->
+      <!-- les etapes de recrutement -->
+      <div>
+        <div class="card mb-4 bg-gradient-success border-radius">
+          <div class="card-header pb-0">
+            <h6>les etapes de recrutement</h6>
+          </div>
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                {% for st in t_state %}
+                  <th class="text-uppercase text-dark text-xxs align-middle text-center font-weight-bolder opacity-7">{{st.id}} : </th>
+                  <th class="text-uppercase text-dark text-xxs align-middle text-center font-weight-bolder opacity-7">{{st.name}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+
+
+      <!-- Liste des condidats -->
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h3>Liste des contracts</h3>
+              <h3>Liste des condidats</h3>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7">Nom de l'employé</th>
-                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7 ps-2 align-middle text-center">date de dédut contract</th>
-                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7 ps-2 align-middle text-center">date de fin contract</th>
-                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7 ps-2 align-middle text-center">Salaire</th>
-                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7 ps-2 align-middle text-center">Etat de contract</th>
+                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7">Nom de condidat</th>
+                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7 ps-2 align-middle text-center">date de creation</th>
+                      <th class="text-uppercase text-secondary font-weight-bolder opacity-7 ps-2 align-middle text-center">Stage de condidat</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for cont in t_contract %}
+                  {% for app in t_applicant %}
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h5 class="mb-0 text-sm">{{cont.name}}</h5>
+                            <h5 class="mb-0 text-sm">{{app.partner_name}}</h5>
                           </div>
                         </div>
                       </td>
                       <td class="align-middle text-center" >
-                        <h5 class="mb-0 text-sm">{{cont.date_start|date('d-m-Y')}}</h5>
+                        <h5 class="mb-0 text-sm">{{app.create_date|date('d-m-Y')}}</h5>
                       </td>
                       <td class="align-middle text-center">
-                        <h5 class="mb-0 text-sm">{{cont.date_end|date('d-m-Y')}}</h5>
-                      </td>
-                      <td class="align-middle text-center">
-                        <h5 class="mb-0 text-sm">{{cont.wage}}</h5>
-                      </td>
-                      <td class="align-middle text-center">
-                      {% if cont.state == "cancel" %}
-                        <h5 class="mb-0 text-sm bg-gradient-danger">{{cont.state}}</h5>
+                        {% if app.name == "Contract Signed" %}
+                        <h5 class="mb-0 text-sm bg-gradient-success">{{app.name}}</h5>
                         {% else %}
-                        <h5 class="mb-0 text-sm">{{cont.state}}</h5>
-                      {% endif %}
+                        <h5 class="mb-0 text-sm">{{app.name}}</h5>
+                        {% endif %}
                       </td>
                     </tr>
                     {% endfor %}
@@ -175,51 +186,7 @@
             </div>
           </div>
         </div>
-      </div>
-
-
-    <!-- Liste des employés -->
-      <div class="row">
-        <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h3>Liste des employés</h3>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom de l'employé</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">poste occupé</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">E-mail</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for emp in t_emp %}
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{emp.name}}</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{emp.job_title}}</p>
-                      </td>
-                      <td>
-                        <span class="badge badge-sm bg-gradient-secondary">{{emp.work_email}}</span>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> 
     </div>
     <footer class="footer pt-3  ">
       <div class="container-fluid">

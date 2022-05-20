@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     /**
      * Undocumented function
      *@Route("/" , name="homepage")
-     *
+     *@Security("is_granted('ROLE_USER')")
      */
     public function home(EntityManagerInterface $manager){
         //partie 1
@@ -159,7 +159,7 @@ class HomeController extends AbstractController
 
 
             'wage_c1' => json_encode($wage_c1),
-            'contract_state' => json_encode($contract_state),
+            'contract_state' => json_encode($contract_state1),
 
             'wage_contract' => $wage_contract,
             'an_wage_contract' => $an_wage_contract,
