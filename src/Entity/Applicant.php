@@ -47,6 +47,11 @@ class Applicant
      */
     private $job;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $partner_name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Applicant
     public function setJob(?Job $job): self
     {
         $this->job = $job;
+
+        return $this;
+    }
+
+    public function getPartnerName(): ?string
+    {
+        return $this->partner_name;
+    }
+
+    public function setPartnerName(?string $partner_name): self
+    {
+        $this->partner_name = $partner_name;
 
         return $this;
     }

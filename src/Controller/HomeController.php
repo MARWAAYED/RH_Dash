@@ -6,6 +6,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
@@ -59,10 +60,19 @@ class HomeController extends AbstractController
         $wage_contract = $manager->createQuery('SELECT t.state, SUM(t.wage) as wg FROM App\Entity\Contract t GROUP BY t.state')->getResult();
         //total des salaires par contract d'une année
         $an_wage_contract = $manager->createQuery('SELECT t.state, SUM(t.wage)*12 as wga FROM App\Entity\Contract t GROUP BY t.state')->getResult();
-
-        //$wage_contract1=array_map('current',$wage_contract); 
-        //$an_wage_contract1=array_map('current',$an_wage_contract); 
-        dump($wage_contract);
+        
+        
+        
+        
+        
+        
+        
+        $contract_state = $manager->createQuery('SELECT t.state as wg FROM App\Entity\Contract t GROUP BY t.state')->getResult();
+        $wage_c = $manager->createQuery('SELECT SUM(t.wage) as wg FROM App\Entity\Contract t GROUP BY t.state')->getResult();
+        
+        $wage_c1=array_map('current',$wage_c ); 
+        $contract_state1=array_map('current',$contract_state); 
+        dump($wage_c1);
 
 
 
@@ -124,6 +134,12 @@ class HomeController extends AbstractController
             
 
 
+
+
+
+
+
+
         return $this->render('base.html.twig', [
             'stats' => Compact(
             'employee', 'applicant', 
@@ -140,6 +156,11 @@ class HomeController extends AbstractController
             'stage_id' => json_encode($stage_id1),
             'stage' => json_encode($stage1),
             'stage_name' => json_encode($stage2),
+
+
+            'wage_c1' => json_encode($wage_c1),
+            'contract_state' => json_encode($contract_state),
+
             'wage_contract' => $wage_contract,
             'an_wage_contract' => $an_wage_contract,
         ]);
